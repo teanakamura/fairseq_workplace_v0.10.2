@@ -1,0 +1,13 @@
+EXEC_FILE_PATH=
+DATA_DIR=
+GROUPDISK=
+SAVE_DIR=
+USER_DIR=
+TENSORBOARD_DIR=
+
+# for generate
+# GEN_DATA_DIR=${FAIRSEQ_ROOT}/workplace/data-bin/${CONF[gen_data]:-${CONF[data]}}
+GEN_DATA_DIR=${FAIRSEQ_ROOT}/workplace/data-bin/${CONF[data]}/${CONF[gen_data]}/
+EXEC_GEN_FILE_PATH=
+SAVE_FILE=
+OUT_DIR=

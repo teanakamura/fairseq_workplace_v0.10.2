@@ -1,0 +1,9 @@
+*.tgz
+
+script/yaml_configs
+script/log
+script/stdout
+script/translation_example
+data-bin
+checkpoints
+tensorboard-log
