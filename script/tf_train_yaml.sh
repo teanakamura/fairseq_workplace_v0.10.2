@@ -41,7 +41,6 @@ OPTIONAL_ARGS=(
    --warmup-init-lr ${CONF[warmup_init_lr]}
    --dropout ${CONF[reg_dropout]}
    --weight-decay ${CONF[reg_weight_decay]}
-   --decoder-learned-pos
    --encoder-learned-pos
    --log-format simple
    --log-interval 1000
@@ -61,11 +60,20 @@ OPTIONAL_ARGS=(
    --source-lang ${CONF[lang_src]}
    --target-lang ${CONF[lang_tgt]}
 )
+   # --decoder-learned-pos
       # --max-source-positions ${CONF[io_max_src]}
       # --max-target-positions ${CONF[io_max_tgt]}
    # --max-sentences ${CONF[io_max_sentences]}
 
-BOOLEAN_OPTIONS=(fp16 cpu reset_optimizer share_all_embeddings)
+BOOLEAN_OPTIONS=(
+  fp16
+  cpu
+  reset_optimizer
+  share_all_embeddings
+  represent_length_by_lrpe
+  represent_length_by_ldpe
+  ordinary_sinpos
+)
 for option in ${BOOLEAN_OPTIONS[@]}; do
   if ${CONF[$option]}; then
     OPTIONAL_ARGS+=(--${option//_/-})

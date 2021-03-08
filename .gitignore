@@ -1,4 +1,6 @@
 *.tgz
+*.out
+__pycache__
 
 script/yaml_configs
 script/log
