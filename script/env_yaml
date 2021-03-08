@@ -3,7 +3,7 @@
 EXEC_FILE_PATH=${FAIRSEQ_ROOT}/fairseq/fairseq_cli/
 DATA_DIR=${FAIRSEQ_ROOT}/workplace/data-bin/${CONF[data_name]}/${CONF[data_type]}/
 
-SAVE_DIR=${GROUPDISK:-${FAIRSEQ_ROOT}}/checkpoints/${CONF[data_name]}/${CONF[data_type]}/${CONF[model_name]}/
+SAVE_DIR=${GROUPDISK:-${FAIRSEQ_ROOT}/workplace}/checkpoints/${CONF[data_name]}/${CONF[data_type]}/${CONF[model_name]}/
 USER_DIR=${FAIRSEQ_ROOT}/workplace/userdir/
 TENSORBOARD_DIR=${FAIRSEQ_ROOT}/workplace/tensorboard-log/${CONF[data_name]}/${CONF[data_type]}/${CONF[model_name]}/log/
 
