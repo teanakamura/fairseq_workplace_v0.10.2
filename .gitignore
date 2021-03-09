@@ -1,5 +1,6 @@
 *.tgz
 *.out
+.ipynb_checkpoints
 __pycache__
 
 script/yaml_configs
@@ -9,6 +10,7 @@ script/translation_example
 script/env.sh
 script/variables
 job_script/std
+generation
 data-bin
 checkpoints
 tensorboard-log
