@@ -90,8 +90,8 @@ done
 #   OPTIONAL_ARGS+=(${CONF[model_criterion_label_smoothing]})
 # fi
 
-echo "python ${EXEC_GEN_FILE_PATH}/generate.py ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}"
-python ${EXEC_GEN_FILE_PATH}/generate.py ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}
+echo "python ${EXEC_GEN_FILE} ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}"
+python ${EXEC_GEN_FILE} ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}
 unset CONF
 
 if [[ ${CONF[data]: -7} = subword ]]; then

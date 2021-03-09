@@ -481,7 +481,7 @@ class LengthControlTransformerModel(TransformerModel):
 class LCTransformerDecoder(TransformerDecoder):
     def __init__(self, args, dictionary, embed_tokens, no_encoder_attn=False):
         self.args = args
-        super().__init__(args, dictionary, embed_tokens)
+        super().__init__(args, dictionary, embed_tokens, no_encoder_attn)
         self.register_buffer("version", torch.Tensor([3]))
         self._future_mask = torch.empty(0)
 

@@ -60,7 +60,25 @@ class LCSequenceGenerator(SequenceGenerator):
             match_source_len (bool, optional): outputs should match the source
                 length (default: False)
         """
-        super().__init__()
+        super().__init__(
+            models,
+            tgt_dict,
+            beam_size,
+            max_len_a,
+            max_len_b,
+            min_len,
+            normalize_scores,
+            len_penalty,
+            unk_penalty,
+            temperature,
+            match_source_len,
+            no_repeat_ngram_size,
+            search_strategy,
+            eos,
+            symbols_to_strip_from_output,
+            lm_model,
+            lm_weight,
+        )
         if isinstance(models, LCEnsembleModel):
             self.model = models
         else:
@@ -187,7 +205,7 @@ class LCSequenceGenerator(SequenceGenerator):
         else:
             raise Exception("expected src_tokens or source in net input")
 
-        tgt_lengths = encoder_input.pop('tgt_lengths')
+        tgt_lengths = net_input.pop('tgt_lengths')
 
         # bsz: total number of sentences in beam
         # Note that src_tokens may have more than 2 dimenions (i.e. audio features)

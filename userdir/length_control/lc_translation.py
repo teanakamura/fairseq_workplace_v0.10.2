@@ -10,7 +10,7 @@ import os
 from argparse import Namespace
 
 import numpy as np
-from fairseq import metrics, options, utils
+from fairseq import metrics, search, options, utils
 from fairseq.data import (
     AppendTokenDataset,
     ConcatDataset,
