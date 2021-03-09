@@ -6,6 +6,9 @@ script/yaml_configs
 script/log
 script/stdout
 script/translation_example
+script/env.sh
+script/variables
+job_script/std
 data-bin
 checkpoints
 tensorboard-log
