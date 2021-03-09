@@ -4,7 +4,7 @@ import argparse
 import yaml
 from attrdict import AttrDict
 
-from py_utils.load_yaml import load_yaml, hierarchical_load_yaml
+from py_utils.yaml_utils import load_yaml, hierarchical_load_yaml
 
 HOME=os.environ['HOME']
 SPMODEL_ROOT=f'{HOME}/data'

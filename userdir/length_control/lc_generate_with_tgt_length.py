@@ -21,7 +21,7 @@ from fairseq import checkpoint_utils, options, scoring, tasks, utils
 from fairseq.logging import progress_bar
 from fairseq.logging.meters import StopwatchMeter, TimeMeter
 
-from py_utils.load_yaml import load_yaml
+from py_utils.yaml_utils import load_yaml
 
 def main(args):
     assert args.path is not None, "--path required for generation!"
