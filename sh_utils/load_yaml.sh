@@ -18,15 +18,16 @@ update_conf () {
 
 yaml_root_path=$1
 yaml_path=$2
-
-yaml_path_array=(${yaml_path//\// })
-declare -A LOADED_YAML
-for e in ${yaml_path_array[@]}; do
-  if [ -f $yaml_root_path/default.yml ]; then
-    update_conf $yaml_root_path/default.yml
-  fi
-  yaml_root_path=$yaml_root_path/$e
-done
+if [ -n $yaml_path ]; then
+  yaml_path_array=(${yaml_path//\// })
+  declare -A LOADED_YAML
+  for e in ${yaml_path_array[@]}; do
+    if [ -f $yaml_root_path/default.yml ]; then
+      update_conf $yaml_root_path/default.yml
+    fi
+    yaml_root_path=$yaml_root_path/$e
+  done
+fi
 update_conf $yaml_root_path
 
 for k in ${!LOADED_YAML[@]}; do

@@ -6,6 +6,12 @@ SCRIPT_DIR=`dirname $0`
 SH_UTILS_DIR=$SCRIPT_DIR/../sh_utils
 YAML_ROOT_PATH=$SCRIPT_DIR/yaml_configs
 
+source $SCRIPT_DIR/env.sh
+declare -A ENV
+eval ENV=(`$SH_UTILS_DIR/load_yaml.sh $YAML_ROOT_PATH/env.yml`)
+FAIRSEQ_ROOT=${ENV[FAIRSEQ_ROOT]}
+GROUPDISK=${ENV[GROUPDISK]}
+
 declare -A CONF
 eval CONF=(`$SH_UTILS_DIR/load_yaml.sh $YAML_ROOT_PATH $1/$2`)
 
@@ -13,9 +19,9 @@ for k in ${!CONF[@]}; do
   echo $k: ${CONF[$k]}
 done
 
-ENV_FILE=${FAIRSEQ_ROOT}/workplace/script/env_yaml
-source ${ENV_FILE}
-echo EXEC_FILE_PATH: ${EXEC_FILE_PATH}
+VAR_FILE=${FAIRSEQ_ROOT}/workplace/script/variables
+source ${VAR_FILE}
+echo EXEC_GEN_FILE_PATH: ${EXEC_GEN_FILE_PATH}
 echo DATA_DIR: ${DATA_DIR}
 echo SAVE_DIR: ${SAVE_DIR}
 echo USER_DIR: ${USER_DIR}
@@ -84,8 +90,8 @@ done
 #   OPTIONAL_ARGS+=(${CONF[model_criterion_label_smoothing]})
 # fi
 
-echo "python ${EXEC_GEN_FILE_PATH}generate.py ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}"
-python ${EXEC_GEN_FILE_PATH}generate.py ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}
+echo "python ${EXEC_GEN_FILE_PATH}/generate.py ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}"
+python ${EXEC_GEN_FILE_PATH}/generate.py ${GEN_DATA_DIR} ${OPTIONAL_ARGS[@]}
 unset CONF
 
 if [[ ${CONF[data]: -7} = subword ]]; then
