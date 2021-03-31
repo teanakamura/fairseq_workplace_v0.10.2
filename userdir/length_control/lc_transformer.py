@@ -522,8 +522,18 @@ class LCTransformerDecoder(TransformerDecoder):
             else None
         )
 
-        ## ???
-        self.embed_positions = (
+        ## embed_positionsはそれぞれ別のインスタンスである必要がある
+        # self.embed_positions = (
+        #     LCPositionalEmbedding(
+        #         args.max_target_positions,
+        #         embed_dim,
+        #         self.padding_idx,
+        #         learned=args.decoder_learned_pos,
+        #     )
+        #     if not args.no_token_positional_embeddings
+        #     else None
+        # )
+        self.embed_positions_original = (
             LCPositionalEmbedding(
                 args.max_target_positions,
                 embed_dim,
@@ -533,36 +543,26 @@ class LCTransformerDecoder(TransformerDecoder):
             if not args.no_token_positional_embeddings and self.ordinary_sinpos
             else None
         )
-        # self.embed_positions_original = (
-        #     PositionalEmbedding(
-        #         args.max_target_positions,
-        #         embed_dim,
-        #         self.padding_idx,
-        #         learned=args.decoder_learned_pos,
-        #     )
-        #     if not args.no_token_positional_embeddings and self.ordinary_sinpos
-        #     else None
-        # )
-        # self.embed_positions_lrpe = (
-        #     PositionalEmbedding(
-        #         args.max_target_positions,
-        #         embed_dim,
-        #         self.padding_idx,
-        #         learned=args.decoder_learned_pos,
-        #     )
-        #     if not args.no_token_positional_embeddings and self.represent_length_by_lrpe
-        #     else None
-        # )
-        # self.embed_positions_ldpe = (
-        #     PositionalEmbedding(
-        #         args.max_target_positions,
-        #         embed_dim,
-        #         self.padding_idx,
-        #         learned=args.decoder_learned_pos,
-        #     )
-        #     if not args.no_token_positional_embeddings and self.represent_length_by_ldpe
-        #     else None
-        # )
+        self.embed_positions_lrpe = (
+            LCPositionalEmbedding(
+                args.max_target_positions,
+                embed_dim,
+                self.padding_idx,
+                learned=args.decoder_learned_pos,
+            )
+            if not args.no_token_positional_embeddings and self.represent_length_by_lrpe
+            else None
+        )
+        self.embed_positions_ldpe = (
+            LCPositionalEmbedding(
+                args.max_target_positions,
+                embed_dim,
+                self.padding_idx,
+                learned=args.decoder_learned_pos,
+            )
+            if not args.no_token_positional_embeddings and self.represent_length_by_ldpe
+            else None
+        )
 
         if getattr(args, "layernorm_embedding", False):
             self.layernorm_embedding = LayerNorm(embed_dim)
@@ -732,23 +732,23 @@ class LCTransformerDecoder(TransformerDecoder):
         positions = None
         if self.ordinary_sinpos:
             positions = (
-                self.embed_positions(
+                self.embed_positions_original(
                     prev_output_tokens, incremental_state=incremental_state
                 )
-                if self.embed_positions is not None
+                if self.embed_positions_original is not None
                 else None
             )
             if incremental_state is not None and positions is not None:
                 positions = positions[:, -1:]
         if self.represent_length_by_lrpe:
             positions_lrpe = (
-                self.embed_positions(
+                self.embed_positions_lrpe(
                     prev_output_tokens,
                     incremental_state=incremental_state,
                     length=length,
                     sinpostype='ratio',
                 )
-                if self.embed_positions is not None
+                if self.embed_positions_lrpe is not None
                 else None
             )
             if positions_lrpe is not None:
@@ -759,13 +759,13 @@ class LCTransformerDecoder(TransformerDecoder):
                 positions = positions + positions_tmp if positions is not None else positions_tmp
         if self.represent_length_by_ldpe:
             positions_ldpe = (
-                self.embed_positions(
+                self.embed_positions_ldpe(
                     prev_output_tokens,
                     incremental_state=incremental_state,
                     length=length,
                     sinpostype='absolute',
                 )
-                if self.embed_positions is not None
+                if self.embed_positions_ldpe is not None
                 else None
             )
             if positions_ldpe is not None:

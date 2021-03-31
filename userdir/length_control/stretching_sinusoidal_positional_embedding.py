@@ -87,7 +87,7 @@ class StretchingSinusoidalPositionalEmbedding(SinusoidalPositionalEmbedding):
                         .repeat(bsz, 1, 1)
                     )
                 return self.weights[self.padding_idx + pos, :].expand(bsz, 1, -1)
-            elif sinopstype == 'absolute':
+            elif sinpostype == 'absolute':
                 minuspos = (length.view(-1) + 3) - (self.padding_idx + pos).type_as(length.data)
                 return self.weights.index_select(0, minuspos.view(-1)).view(bsz, 1, -1)
             else:

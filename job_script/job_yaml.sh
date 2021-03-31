@@ -5,7 +5,7 @@ cd $SCRIPT_DIR
 pwd
 
 #$ -l rt_F=1
-#$ -l h_rt=24:00:00
+#$ -l h_rt=20:00:00
 #$ -j y
 #$ -cwd
 ##$ -p -400

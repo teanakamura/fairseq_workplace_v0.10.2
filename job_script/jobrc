@@ -1,0 +1,5 @@
+export PATH=$PATH:~/.local/bin
+export GROUPDISK=/fs1/groups1/gcb50243/nakamura/fairseq_v0.10.2
+export PYTHONPATH=~/fairseq-v0.10.2/fairseq
+export FAIRSEQ_ROOT=~/fairseq-v0.10.2
+
